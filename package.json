@@ -1,0 +1,24 @@
+{
+  "name": "puppeteer",
+  "version": "1.0.0",
+  "description": "![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PeterKellett/puppeteer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PeterKellett/puppeteer/issues"
+  },
+  "homepage": "https://github.com/PeterKellett/puppeteer#readme",
+  "dependencies": {
+    "nodemon": "^2.0.20",
+    "puppeteer": "^19.5.2"
+  }
+}
