@@ -21,7 +21,6 @@ const scrollToPageEnd = async (page) => {
 async function start() {
     const browser = await puppeteer.launch({
         ignoreDefaultArgs: ['--disable-extensions'],
-        headless: false
     });
     const page = await browser.newPage()
     await page.goto("https://order.syscoireland.com/")
