@@ -5,9 +5,23 @@ const {
 } = require('buffer');
 var n = 1
 
+const scrollToPageEnd = async (page) => {
+    let originalOffset = 0;
+    while (true) {
+        await page.evaluate('window.scrollBy(0, document.body.scrollHeight)');
+        await page.waitForTimeout(1000);
+        let newOffset = await page.evaluate('window.pageYOffset');
+        if (originalOffset === newOffset) {
+            break;
+        }
+        originalOffset = newOffset;
+    }
+}
+
 async function start() {
     const browser = await puppeteer.launch({
         ignoreDefaultArgs: ['--disable-extensions'],
+        headless: false
     });
     const page = await browser.newPage()
     await page.goto("https://order.syscoireland.com/")
@@ -33,6 +47,7 @@ async function start() {
             for (const subcatitem of subcats) {
                 console.log("SubcatItem: ", subcatitem)
                 await page.goto(subcatitem)
+                await scrollToPageEnd(page);
                 const products = await page.evaluate(() => {
                     return Array.from(document.querySelectorAll(".product-item-link")).map(x => x.href)
                 })
