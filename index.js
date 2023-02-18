@@ -9,7 +9,7 @@ const scrollToPageEnd = async (page) => {
     let originalOffset = 0;
     while (true) {
         await page.evaluate('window.scrollBy(0, document.body.scrollHeight)');
-        await page.waitForTimeout(1000);
+        await page.waitForTimeout(2000);
         let newOffset = await page.evaluate('window.pageYOffset');
         if (originalOffset === newOffset) {
             break;
