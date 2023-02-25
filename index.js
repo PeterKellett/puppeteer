@@ -5,6 +5,8 @@ const {
 } = require('buffer');
 var n = 1
 
+const pageLoadOptions = { waitUntil: 'networkidle2', timeout: 0 }
+
 const scrollToPageEnd = async (page) => {
     let originalOffset = 0;
     while (true) {
@@ -36,7 +38,7 @@ async function start() {
             console.log("categories_done = ", categories_done)
             console.log("category: ", category)
             categories_done.push(category)
-            await page.goto(category)
+            await page.goto(category, pageLoadOptions)
             const subcats = await page.evaluate(() => {
                 // ".subcategory-list.all > a"
                 return Array.from(document.querySelectorAll(".subcategory-list.all > a")).map(x => x.href)
@@ -45,13 +47,13 @@ async function start() {
             console.log("Subcats: ", subcats)
             for (const subcatitem of subcats) {
                 console.log("SubcatItem: ", subcatitem)
-                await page.goto(subcatitem)
+                await page.goto(subcatitem, pageLoadOptions)
                 await scrollToPageEnd(page);
                 const products = await page.evaluate(() => {
                     return Array.from(document.querySelectorAll(".product-item-link")).map(x => x.href)
                 })
                 for (const product of products) {
-                    await page.goto(product)
+                    await page.goto(product, pageLoadOptions)
                     var product_name = await page.evaluate(() => {
                         const element = document.querySelector("span.base")
                         if (element) {
